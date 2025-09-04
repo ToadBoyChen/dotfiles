@@ -38,7 +38,7 @@
  * -------------------------------------------------------------------------- */
 window {
     font-family: "JetBrainsMono Nerd Font", sans-serif;
-    font-size: 18px; /* Slightly larger for better readability */
+    font-size: 14px; /* Slightly larger for better readability */
     
     /* The Frosted Glass Effect */
     background-color: alpha(@base, 0.85); 

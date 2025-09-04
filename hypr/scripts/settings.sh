@@ -30,11 +30,15 @@ case "$choice" in
     fi
     ;;
 "󰸉  Select Wallpaper")
-    SELECTED_BASENAME=$(find "$WALLPAPER_DIR" -type f $ -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" $ -exec basename {} \; | sort | wofi --dmenu --prompt "Select Wallpaper")
-    if [[ -n "$SELECTED_BASENAME" ]]; then
-      SELECTED_WALLPAPER="$WALLPAPER_DIR/$SELECTED_BASENAME"
+    SELECTED_WALLPAPER=$(find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) \
+      | sort \
+      | wofi --dmenu --prompt "🖼️ Select Wallpaper")
+
+    if [[ -n "$SELECTED_WALLPAPER" ]]; then
       swww img "$SELECTED_WALLPAPER" --transition-type any --transition-fps 60
-      notify-send "Wallpaper Changed" "Set to $SELECTED_BASENAME"
+      notify-send "Wallpaper Changed" "Set to $(basename "$SELECTED_WALLPAPER")"
+    else
+      notify-send "Wallpaper" "No wallpaper selected"
     fi
     ;;
   "🎨  Change Theme")
