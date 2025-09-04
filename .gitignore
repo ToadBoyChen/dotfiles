@@ -16,6 +16,9 @@
 !hypr/hyprlock.conf
 !hypr/hyprpaper.conf
 
+!hypr/scripts/
+!hypr/scripts/**
+
 !dunst/
 !dunst/**
 

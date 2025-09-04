@@ -11,7 +11,7 @@
 @define-color subtext0 #a6adc8;
 @define-color surface0 #313244;
 @define-color overlay0 #6c7086;
-@define-color accent   #a6e3a1;
+@define-color accent   #b4befe;
 
 @define-color red       #f38ba8;
 @define-color yellow    #f9e2af;
@@ -25,7 +25,7 @@
 @keyframes slide-in {
     from {
         opacity: 0;
-        transform: translateY(-20px);
+        transform: translateY(-100px);
     }
     to {
         opacity: 1;
@@ -38,7 +38,7 @@
  * -------------------------------------------------------------------------- */
 window {
     font-family: "JetBrainsMono Nerd Font", sans-serif;
-    font-size: 16px; /* Slightly larger for better readability */
+    font-size: 18px; /* Slightly larger for better readability */
     
     /* The Frosted Glass Effect */
     background-color: alpha(@base, 0.85); 
