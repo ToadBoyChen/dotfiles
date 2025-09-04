@@ -1,0 +1,97 @@
+@define-color base     __BASE__;
+@define-color mantle   __MANTLE__;
+@define-color crust    __CRUST__;
+@define-color text     __TEXT__;
+@define-color subtext0 __SUBTEXT0__;
+@define-color surface0 __SURFACE0__;
+@define-color overlay0 __OVERLAY0__;
+@define-color accent   __ACCENT__;
+
+/* Optional Extended Palette - will only work if defined in theme.vars */
+@define-color red       __RED__;
+@define-color yellow    __YELLOW__;
+@define-color green     __GREEN__;
+@define-color teal      __TEAL__;
+@define-color lavender  __LAVENDER__;
+
+
+/* -----------------------------------------------------------------------------
+ *  MAIN WINDOW
+ * -------------------------------------------------------------------------- */
+window {
+    font-family: "JetBrainsMono Nerd Font", sans-serif;
+    font-size: 14px;
+    background-color: @base;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    border: 1px solid alpha(@accent, 0.3);
+    
+    /* Apply the animation */
+    animation: slide-in 0.3s ease-out;
+}
+
+#outer-box {
+    padding: 20px;
+    color: @text;
+}
+
+/* -----------------------------------------------------------------------------
+ *  INPUT BOX
+ * -------------------------------------------------------------------------- */
+#input {
+    background-color: @surface0;
+    color: @text;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid @mantle;
+    transition: box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+#input:focus {
+    outline: none;
+    border-color: @accent;
+    box-shadow: 0 0 0 3px alpha(@accent, 0.4);
+}
+
+#input placeholder {
+    color: @subtext0;
+    opacity: 0.8;
+}
+
+/* -----------------------------------------------------------------------------
+ *  ENTRIES LIST
+ * -------------------------------------------------------------------------- */
+#scroll {
+    margin-top: 5px;
+}
+
+#entry {
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#entry:hover {
+    background-color: @overlay0;
+}
+
+#entry:selected {
+    background-color: @accent;
+    color: @base;
+    /* THE GLOW EFFECT - This makes it cohesive with your Waybar active workspace */
+    box-shadow: 0 0 10px 0 alpha(@accent, 0.7);
+}
+
+/* -----------------------------------------------------------------------------
+ *  TEXT STYLING
+ * -------------------------------------------------------------------------- */
+#text {
+    color: @text;
+    font-weight: 500;
+}
+
+#entry:selected #text {
+    color: @base;
+    font-weight: 600; /* Bolder text on selection for readability */
+}

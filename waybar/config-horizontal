@@ -1,0 +1,236 @@
+{
+    "layer": "top",
+    "position": "top",
+    "width": 0,
+    "spacing": 0,
+    "margin": 0,
+
+    "modules-left": [
+        "custom/launcher",
+        "clock",
+        "hyprland/workspaces"
+    ],
+    "modules-center": [
+        "group/media"
+    ],
+    "modules-right": [
+        "wlr/taskbar",
+        "group/hardware",
+        "group/connections",
+        "pulseaudio",
+        "backlight",
+        "custom/batteries",
+        "custom/power-menu"
+    ],
+
+    "custom/launcher": { 
+        "format": "", 
+        "tooltip": false, 
+        "on-click": "~/.config/waybar/scripts/settings.sh" },
+
+    "clock": {
+        "format": "{:%H %M}",
+        "tooltip-format": "<big>{:%A, %d %B %Y}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+
+    "custom/notification": {
+        "tooltip": false,
+        "format": "{}",
+        "return-type": "json",
+        "interval": 1,
+        "exec-if": "which dunstctl",
+        "exec": "~/.config/waybar/scripts/dunst-status.sh",
+        "on-click": "dunstctl history-pop",
+        "on-click-right": "dunstctl set-paused toggle",
+        "on-click-middle": "dunstctl close-all",
+        "escape": true
+    },
+
+    "custom/hardware": {
+        "format": "",
+        "tooltip": false
+    },
+    "custom/toggles": {
+        "format": "",
+        "tooltip": false
+    },
+
+    "group/hardware": {
+        "orientation": "inherit",
+        "drawer": {
+        "transition-duration": 300,
+        "children-class": "drawer-child",
+        "transition-left-to-right": false
+        },
+        "modules": ["custom/hardware", "cpu", "memory", "temperature"]
+    },
+    "group/toggles": {
+        "orientation": "inherit",
+        "drawer": {
+        "transition-duration": 300,
+        "children-class": "not-memory",
+        "transition-left-to-right": false
+        },
+        "modules": ["custom/toggles", "backlight", "pulseaudio"]
+    },
+
+    "hyprland/workspaces": {
+        "on-scroll-up": "hyprctl dispatch workspace r-1",
+        "on-scroll-down": "hyprctl dispatch workspace r+1",
+        "on-click": "activate",
+        "active-only": false,
+        "all-outputs": true,
+        "format": "{}",
+        "format-icons": {
+        "urgent": "",
+        "active": "",
+        "default": ""
+        },
+        "persistent-workspaces": {
+        "*": 5
+        }
+    },
+
+      "wlr/taskbar": {
+        "format": "{icon}",
+        "icon-size": 24,
+        "tooltip-format": "{title}",
+        "on-click": "activate",
+        "on-click-middle": "close",
+        "ignore-list": ["Alacritty", "kitty"],
+        "app_ids-mapping": {
+        "firefoxdeveloperedition": "firefox-developer-edition"
+        },
+        "rewrite": {
+        "Firefox Web Browser": "Firefox",
+        "Foot Server": "Terminal"
+        }
+    },
+
+    "cpu": {
+        "format": " {icon}",
+        "interval": 2,
+        "tooltip-format": "CPU: {usage}% @ {avg_frequency}GHz",
+        "format-icons": ["⠀", "⡀", "⣀", "⣤", "⣦", "⣶", "⣷", "⣿"],
+        "warning-threshold": 75,
+        "critical-threshold": 90
+    },
+
+    "memory": {
+        "format": " {icon}",
+        "interval": 2,
+        "tooltip-format": "Memory: {used:0.1f}GB / {total:0.1f}GB",
+        "format-icons": ["⠀", "⡀", "⣀", "⣤", "⣦", "⣶", "⣷", "⣿"],
+        "warning-threshold": 75,
+        "critical-threshold": 90
+    },
+
+    "temperature": {
+        "hwmon-path": "/sys/class/hwmon/hwmon5/temp1_input",
+        "critical-threshold": 75,
+        "format": " {icon}",
+        "format-critical": " {icon}",
+        "format-icons": ["⠀", "⡀", "⣀", "⣤", "⣦", "⣶", "⣷", "⣿"],
+        "tooltip-format": "Temp: {temperatureC}°C"
+    },
+
+    "pulseaudio": {
+        "format": " {icon}",
+        "format-muted": "󰖁 ⠀",
+        "on-click": "pavucontrol",
+        "on-scroll-up": "pamixer -i 5",
+        "on-scroll-down": "pamixer -d 5",
+        "format-icons": ["⠀", "⡀", "⣀", "⣤", "⣦", "⣶", "⣷", "⣿"],
+        "tooltip-format": "{volume}% on {desc}"
+    },
+
+    "group/media": {
+        "orientation": "horizontal",
+        "exec-if": "playerctl status",
+        "modules": [
+            "custom/mpris-text",
+            "custom/visualizer"
+        ]
+    },
+
+    "custom/mpris-text": {
+        "name": "mpris-text",
+        "format": "{text}",
+        "return-type": "json",
+        "exec": "~/.config/waybar/scripts/mpris-text.sh",
+        "interval": 2,
+        "tooltip": false
+    },
+
+    "custom/mpris-art": {
+        "name": "mpris-art",
+        "format": "{}",
+        "return-type": "json",
+        "interval": 5,
+        "exec": "~/.config/waybar/scripts/mpris-art.sh",
+        "tooltip": false
+    },
+    
+    "custom/visualizer": {
+        "exec-if": "pactl list sink-inputs | grep -q 'State: RUNNING'",
+        "format": "{text}",
+        "exec": "cava -p /home/toad/.config/cava/config-waybar-horizontal | sed -u 's/;//g'",
+        "rotate": 180
+    },
+
+    "custom/connections": {
+        "format": "󰄙",
+        "tooltip": false
+    },
+
+    "group/connections": {
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 300,
+            "children-class": "drawer-child",
+            "transition-left-to-right": false
+        },
+        "modules": ["custom/connections", "network", "bluetooth"]
+    },
+
+    "backlight": {
+        "format": "󰃠 {icon}",
+        "on-scroll-up": "brightnessctl set 5%+",
+        "on-scroll-down": "brightnessctl set 5%-",
+        "format-icons": ["⠀", "⡀", "⣀", "⣤", "⣦", "⣶", "⣷", "⣿"],
+        "tooltip-format": "Brightness: {percent}%"
+    },
+    "network": {
+        "interface": "wlan0",
+        "format": "{icon}",
+        "format-wifi": "{icon}",
+        "format-ethernet": "󰈀",
+        "format-disconnected": "󰖪",
+        "format-icons": {"wifi": ["󰤟", "󰤢", "󰤥", "󰤨"]},
+        "tooltip-format": "{ifname} ({essid})\nIP: {ipaddr}\nSignal: {signalStrength}%",
+        "on-click": "nm-connection-editor"
+    },
+
+    "bluetooth": {
+        "format": "",
+        "format-disabled": "󰂲",
+        "format-connected": "󰂰",
+        "tooltip-format": "{device_alias}",
+        "tooltip-format-connected": "Connected to {device_alias}",
+        "tooltip-format-enumerate-connected": "Connected to {device_alias}",
+        "on-click": "blueman-manager"
+    },
+
+    "custom/batteries": {
+        "exec": "~/.config/waybar/scripts/battery-horizontal.sh",
+        "interval": 30,
+        "format": "{}",
+        "return-type": "json"
+    },
+
+    "custom/power-menu": {
+        "format": "",
+        "on-click": "wlogout",
+        "tooltip": false
+    }
+}

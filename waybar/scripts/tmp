@@ -1,0 +1,91 @@
+#!/bin/bash
+# A robust script for Waybar's custom mpris module.
+# Uses absolute paths to avoid environment issues.
+
+# --- !! IMPORTANT !! ---
+# --- Your paths from `which playerctl`, etc. ---
+PLAYERCTL="/usr/sbin/playerctl"
+JQ="/usr/sbin/jq"
+CURL="/usr/sbin/curl"
+
+# Exit immediately if a command exits with a non-zero status.
+set -e
+
+# --- Dependency Check ---
+if ! command -v $JQ &> /dev/null; then
+    echo "{\"text\":\"Error: jq is not installed\",\"tooltip\":\"Please install jq to use this script.\",\"class\":\"error\"}"
+    exit 1
+fi
+if ! command -v $PLAYERCTL &> /dev/null; then
+    echo "{\"text\":\"Error: playerctl is not installed\",\"tooltip\":\"Please install playerctl to use this script.\",\"class\":\"error\"}"
+    exit 1
+fi
+
+PLAYER="spotify"
+
+# --- Player Status Check ---
+PLAYER_STATUS=$($PLAYERCTL --player=$PLAYER status 2>/dev/null || echo "Stopped")
+
+if [[ "$PLAYER_STATUS" = "Stopped" ]]; then
+    $JQ -n --arg text "" \
+          --arg tooltip "Player not active" \
+          --arg class "inactive" \
+          '{"text": $text, "tooltip": $tooltip, "class": $class}'
+    exit 0
+fi
+
+# --- Metadata Retrieval ---
+ARTIST=$($PLAYERCTL --player=$PLAYER metadata artist)
+TITLE=$($PLAYERCTL --player=$PLAYER metadata title)
+ALBUM=$($PLAYERCTL --player=$PLAYER metadata album)
+
+# --- Album Art ---
+ART_URL=$($PLAYERCTL --player=$PLAYER metadata mpris:artUrl 2>/dev/null || echo "")
+ART_PATH="/tmp/waybar-mpris-art"
+
+# --- CORRECTED LINE IS HERE ---
+if [[ -n "$ART_URL" ]]; then
+    if [[ "$(cat "${ART_PATH}.url" 2>/dev/null)" != "$ART_URL" ]]; then
+        $CURL -s -o "$ART_PATH" "$ART_URL"
+        echo "$ART_URL" > "${ART_PATH}.url"
+    fi
+fi
+if [ ! -f "$ART_PATH" ]; then
+    touch "$ART_PATH"
+fi
+
+# --- Progress Bar ---
+POSITION=$($PLAYERCTL --player=$PLAYER metadata --format '{{ position }}' 2>/dev/null)
+LENGTH=$($PLAYERCTL --player=$PLAYER metadata --format '{{ mpris:length }}' 2>/dev/null)
+
+if [[ -n "$POSITION" && -n "$LENGTH" && "$LENGTH" -ne 0 ]]; then
+    PERCENT=$(( (POSITION * 100) / LENGTH ))
+else
+    PERCENT=0
+fi
+
+BAR=""
+for ((i=0; i<10; i++)); do
+    (( i*10 < PERCENT )) && BAR+="█" || BAR+="░"
+done
+
+# --- Play/Pause Icon ---
+if [[ "$PLAYER_STATUS" = "Playing" ]]; then
+    PLAY_PAUSE_ICON="󰐎"
+else # Paused
+    PLAY_PAUSE_ICON="󰐊"
+fi
+
+# --- Final JSON Output ---
+$JQ -n \
+  --arg artist "$ARTIST" \
+  --arg title "$TITLE" \
+  --arg album "$ALBUM" \
+  --arg art_path "$ART_PATH" \
+  --arg bar "$BAR" \
+  --arg icon "$PLAY_PAUSE_ICON" \
+  '{
+    "text": "<img src=\"\($art_path)\" width=\"50\" height=\"50\"></img>\n<span font_family=\"monospace\">\($bar)</span>\n<span>󰒮  \($icon)  󰒭</span>",
+    "tooltip": "\($title)\nby \($artist)\nfrom \($album)",
+    "class": "active"
+   }'
