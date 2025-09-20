@@ -26,53 +26,58 @@ echo "Applying theme: $THEME_NAME"
 # --- Variable Handling ---
 source "$VAR_FILE"
 sed_command=""
+# Read all variables from theme.vars and prepare them for sed
 while IFS='=' read -r key value; do
+    # Skip comments and empty lines
     [[ "$key" =~ ^# || -z "$key" ]] && continue
+    # Get the final value of the variable (resolves variables like accent=$lavender)
     final_value="${!key}"
+    # Escape special characters for sed
     safe_value=$(printf '%s\n' "$final_value" | sed -e 's/[\/&]/\\&/g')
+    # Create an __UPPERCASE__ placeholder
     placeholder="__$(echo "$key" | tr '[:lower:]' '[:upper:]')__"
     sed_command+="s/$placeholder/$safe_value/g;"
 done < <(grep -v '^#' "$VAR_FILE" | sed 's/;/\n/g')
 
+
+
 # =============================================================================
-#  Generate derived variables for specific applications
+#  Generate Derived Variables for Hyprlock
 # =============================================================================
 
-hex_to_rgba() {
+# THIS FUNCTION IS THE ONLY CHANGE. It now wraps the output in rgba().
+hex_to_hyprlock_rgba() {
     local hex_color=$(echo "$1" | sed 's/#//')
     local opacity_hex="$2"
-    echo "${hex_color}${opacity_hex}"
+    echo "rgba(${hex_color}${opacity_hex})" # <-- Corrected line
 }
 
-# --- UPGRADED SECTION ---
-# Now handles all the colors needed for the new hyprlock template
-if [[ -n "$text" && -n "$base" && -n "$mantle" && -n "$subtext0" && -n "$green" && -n "$red" && -n "$peach" ]]; then
-    # Base colors
-    HYPRLOCK_TEXT_RGBA_FF=$(hex_to_rgba "$text" "ff")
-    HYPRLOCK_BASE_RGBA_CC=$(hex_to_rgba "$base" "cc")
-    HYPRLOCK_MANTLE_RGBA_80=$(hex_to_rgba "$mantle" "80")
-    HYPRLOCK_SUBTEXT0_RGBA_FF=$(hex_to_rgba "$subtext0" "ff")
-
-    # State colors
-    HYPRLOCK_GREEN_RGBA_FF=$(hex_to_rgba "$green" "ff")
-    HYPRLOCK_RED_RGBA_FF=$(hex_to_rgba "$red" "ff")
-    HYPRLOCK_WARN_RGBA_FF=$(hex_to_rgba "$peach" "ff") # Using peach for warnings
+if [[ -n "$text" && -n "$base" && -n "$mantle" && -n "$subtext0" && -n "$green" && -n "$red" && -n "$peach" && -n "$accent" ]]; then
+    echo "Generating derived variables for Hyprlock..."
     
-    # Simple hex for pango markup
+    HYPRLOCK_TEXT=$(hex_to_hyprlock_rgba "$text" "ff")
+    HYPRLOCK_SUBTEXT=$(hex_to_hyprlock_rgba "$subtext0" "ff")
+    HYPRLOCK_INPUT_INNER=$(hex_to_hyprlock_rgba "$base" "cc")
+    HYPRLOCK_INPUT_OUTER=$(hex_to_hyprlock_rgba "$mantle" "80")
+    HYPRLOCK_ACCENT_BORDER=$(hex_to_hyprlock_rgba "$accent" "cc")
+    HYPRLOCK_CHECK=$(hex_to_hyprlock_rgba "$green" "ff")
+    HYPRLOCK_FAIL=$(hex_to_hyprlock_rgba "$red" "ff")
+    HYPRLOCK_WARN=$(hex_to_hyprlock_rgba "$peach" "ff")
     HYPRLOCK_WARN_HEX=$(echo "$peach" | sed 's/#//')
 
-    # Add all generated variables to the main sed command
-    sed_command+="s/__TEXT_RGBA_FF__/$HYPRLOCK_TEXT_RGBA_FF/g;"
-    sed_command+="s/__BASE_RGBA_CC__/$HYPRLOCK_BASE_RGBA_CC/g;"
-    sed_command+="s/__MANTLE_RGBA_80__/$HYPRLOCK_MANTLE_RGBA_80/g;"
-    sed_command+="s/__SUBTEXT0_RGBA_FF__/$HYPRLOCK_SUBTEXT0_RGBA_FF/g;"
-    sed_command+="s/__GREEN_RGBA_FF__/$HYPRLOCK_GREEN_RGBA_FF/g;"
-    sed_command+="s/__RED_RGBA_FF__/$HYPRLOCK_RED_RGBA_FF/g;"
-    sed_command+="s/__WARN_RGBA_FF__/$HYPRLOCK_WARN_RGBA_FF/g;"
-    sed_command+="s/__WARN_HEX__/$HYPRLOCK_WARN_HEX/g;"
+    sed_command+="s/__HYPRLOCK_TEXT__/$HYPRLOCK_TEXT/g;"
+    sed_command+="s/__HYPRLOCK_SUBTEXT__/$HYPRLOCK_SUBTEXT/g;"
+    sed_command+="s/__HYPRLOCK_INPUT_INNER__/$HYPRLOCK_INPUT_INNER/g;"
+    sed_command+="s/__HYPRLOCK_INPUT_OUTER__/$HYPRLOCK_INPUT_OUTER/g;"
+    sed_command+="s/__HYPRLOCK_ACCENT_BORDER__/$HYPRLOCK_ACCENT_BORDER/g;"
+    sed_command+="s/__HYPRLOCK_CHECK__/$HYPRLOCK_CHECK/g;"
+    sed_command+="s/__HYPRLOCK_FAIL__/$HYPRLOCK_FAIL/g;"
+    sed_command+="s/__HYPRLOCK_WARN__/$HYPRLOCK_WARN/g;"
+    sed_command+="s/__HYPRLOCK_WARN_HEX__/$HYPRLOCK_WARN_HEX/g;"
 fi
 
 
+# --- Apply Themes ---
 echo "Theming Hyprland..."
 sed "$sed_command" "$TEMPLATE_DIR/hyprland.template" > "$HOME/.config/hypr/theme.conf"
 sed -i 's/rgb(#/rgb(/g' "$HOME/.config/hypr/theme.conf"

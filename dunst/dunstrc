@@ -30,7 +30,7 @@
     corner_radius = 10
     
     # --- Themed Colors ---
-    frame_color = "#f9e2af"
+    frame_color = "#b4befe"
     separator_color = "frame"
     
     # --- User Interaction ---
@@ -45,8 +45,8 @@
     animation_duration = 300 # in milliseconds
     
 [progress_bar]
-    frame_color = "#f9e2af"
-    foreground = "#f9e2af" # CORRECTED: Renamed from 'bar_color'
+    frame_color = "#b4befe"
+    foreground = "#b4befe" # CORRECTED: Renamed from 'bar_color'
     background = "#1e1e2e"
     height = 10
     
