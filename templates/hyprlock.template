@@ -17,7 +17,7 @@ background {
 # =======================================================================
 image {
     monitor =
-    path = /home/toad/.config/hypr/avatar.jpg
+    path = __AVATAR_PATH__
     size = 180
     rounding = -1
     halign = center
@@ -34,7 +34,7 @@ label {
     text = $TIME
     font_family = __CLOCK_FONT__
     font_size = 96
-    font_color = rgba(cdd6f4ff)
+    font_color = rgba(__TEXT_RGBA_FF__)
     halign = left
     valign = top
 }
@@ -44,7 +44,7 @@ label {
     monitor =
     text = cmd[date +"%A, %B %d"]  # <-- CORRECTED LINE
     font_size = 24
-    font_color = rgba(a6adc8ff) # Use a dimmer color for the date
+    font_color = rgba(__SUBTEXT0_RGBA_FF__) # Use a dimmer color for the date
     position = 0, -30
     halign = left
     valign = bottom
@@ -64,14 +64,14 @@ input-field {
     outline_thickness = 3
     dots_size = 0.2 # Scale relative to field height
     dots_center = true
-    inner_color = rgba(1e1e2ecc)
-    font_color = rgba(cdd6f4ff)
+    inner_color = rgba(__BASE_RGBA_CC__)
+    font_color = rgba(__TEXT_RGBA_FF__)
     rounding = 30
 
     # Colors for states
-    outer_color = rgba(18182580)
-    check_color = rgba(a6e3a1ff)
-    fail_color = rgba(f38ba8ff)
+    outer_color = rgba(__MANTLE_RGBA_80__)
+    check_color = rgba(__GREEN_RGBA_FF__)
+    fail_color = rgba(__RED_RGBA_FF__)
     
     # Text
     placeholder_text = <i>Password...</i>

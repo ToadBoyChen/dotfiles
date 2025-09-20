@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# A script to APPLY a theme to all configured applications.
-# It takes one argument: the name of the theme directory.
-# Usage: apply-theme.sh <theme_name>
-
-# Stop the script if any command fails
 set -e
 
 # --- Configuration ---
@@ -39,27 +34,59 @@ while IFS='=' read -r key value; do
     sed_command+="s/$placeholder/$safe_value/g;"
 done < <(grep -v '^#' "$VAR_FILE" | sed 's/;/\n/g')
 
-# --- Apply theme to each application ---
+# =============================================================================
+#  Generate derived variables for specific applications
+# =============================================================================
 
-# 1. Hyprland
+hex_to_rgba() {
+    local hex_color=$(echo "$1" | sed 's/#//')
+    local opacity_hex="$2"
+    echo "${hex_color}${opacity_hex}"
+}
+
+# --- UPGRADED SECTION ---
+# Now handles all the colors needed for the new hyprlock template
+if [[ -n "$text" && -n "$base" && -n "$mantle" && -n "$subtext0" && -n "$green" && -n "$red" && -n "$peach" ]]; then
+    # Base colors
+    HYPRLOCK_TEXT_RGBA_FF=$(hex_to_rgba "$text" "ff")
+    HYPRLOCK_BASE_RGBA_CC=$(hex_to_rgba "$base" "cc")
+    HYPRLOCK_MANTLE_RGBA_80=$(hex_to_rgba "$mantle" "80")
+    HYPRLOCK_SUBTEXT0_RGBA_FF=$(hex_to_rgba "$subtext0" "ff")
+
+    # State colors
+    HYPRLOCK_GREEN_RGBA_FF=$(hex_to_rgba "$green" "ff")
+    HYPRLOCK_RED_RGBA_FF=$(hex_to_rgba "$red" "ff")
+    HYPRLOCK_WARN_RGBA_FF=$(hex_to_rgba "$peach" "ff") # Using peach for warnings
+    
+    # Simple hex for pango markup
+    HYPRLOCK_WARN_HEX=$(echo "$peach" | sed 's/#//')
+
+    # Add all generated variables to the main sed command
+    sed_command+="s/__TEXT_RGBA_FF__/$HYPRLOCK_TEXT_RGBA_FF/g;"
+    sed_command+="s/__BASE_RGBA_CC__/$HYPRLOCK_BASE_RGBA_CC/g;"
+    sed_command+="s/__MANTLE_RGBA_80__/$HYPRLOCK_MANTLE_RGBA_80/g;"
+    sed_command+="s/__SUBTEXT0_RGBA_FF__/$HYPRLOCK_SUBTEXT0_RGBA_FF/g;"
+    sed_command+="s/__GREEN_RGBA_FF__/$HYPRLOCK_GREEN_RGBA_FF/g;"
+    sed_command+="s/__RED_RGBA_FF__/$HYPRLOCK_RED_RGBA_FF/g;"
+    sed_command+="s/__WARN_RGBA_FF__/$HYPRLOCK_WARN_RGBA_FF/g;"
+    sed_command+="s/__WARN_HEX__/$HYPRLOCK_WARN_HEX/g;"
+fi
+
+
 echo "Theming Hyprland..."
-HYPR_THEME_FILE="$HOME/.config/hypr/theme.conf"
-sed "$sed_command" "$TEMPLATE_DIR/hyprland.template" > "$HYPR_THEME_FILE"
-sed -i 's/rgb(#/rgb(/g' "$HYPR_THEME_FILE"
+sed "$sed_command" "$TEMPLATE_DIR/hyprland.template" > "$HOME/.config/hypr/theme.conf"
+sed -i 's/rgb(#/rgb(/g' "$HOME/.config/hypr/theme.conf"
 
-# 2. Wofi
 echo "Theming Wofi..."
 sed "$sed_command" "$TEMPLATE_DIR/wofi.template" > "$HOME/.config/wofi/style.css"
 
-# 3. Dunst
 echo "Theming Dunst..."
 sed "$sed_command" "$TEMPLATE_DIR/dunst.template" > "$HOME/.config/dunst/dunstrc"
 
-# 4. Waybar
 echo "Theming Waybar..."
-WAYBAR_TEMPLATE_SYMLINK="$TEMPLATE_DIR/waybar.template" # Use the symlink!
-WAYBAR_STYLE_FILE="$HOME/.config/waybar/style.css"
-# Write to a temporary file first to avoid a race condition
-sed "$sed_command" "$WAYBAR_TEMPLATE_SYMLINK" > "${WAYBAR_STYLE_FILE}.tmp"
-# Then, atomically move the new file into place.
-mv "${WAYBAR_STYLE_FILE}.tmp" "$WAYBAR_STYLE_FILE"
+sed "$sed_command" "$TEMPLATE_DIR/waybar.template" > "$HOME/.config/waybar/style.css.tmp" && mv "$HOME/.config/waybar/style.css.tmp" "$HOME/.config/waybar/style.css"
+
+echo "Theming Hyprlock..."
+sed "$sed_command" "$TEMPLATE_DIR/hyprlock.template" > "$HOME/.config/hypr/hyprlock.conf"
+
+echo "Theme applied successfully!"
