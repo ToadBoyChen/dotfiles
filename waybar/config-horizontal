@@ -173,7 +173,7 @@
     
     "custom/visualizer": {
         "exec-if": "pactl list sink-inputs | grep -q 'State: RUNNING'",
-        "format": "{text}",
+        "format": "{}",
         "exec": "cava -p /home/toad/.config/cava/config-waybar-horizontal | sed -u 's/;//g'",
         "rotate": 180
     },

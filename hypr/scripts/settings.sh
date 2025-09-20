@@ -19,7 +19,6 @@ choice=$(printf "  Random Wallpaper\n󰸉  Select Wallpaper\n🎨  Change The
   wofi --dmenu --prompt "Settings")
 
 case "$choice" in
-  # ... (Wallpaper options remain unchanged) ...
   "  Random Wallpaper")
     RANDOM_WALLPAPER=$(find "$WALLPAPER_DIR" -type f -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" | shuf -n 1)
     if [[ -n "$RANDOM_WALLPAPER" ]]; then
@@ -45,9 +44,6 @@ case "$choice" in
     "$THEME_SWITCHER"
     ;;
   "↔️  Toggle Bar Orientation")
-    # THE FIX: No more killall here. We ONLY manage files.
-
-    # 1. Swap symlinks for BOTH config and the CSS template
     if [[ "$(readlink "$CONFIG_SYMLINK")" == *vertical* ]]; then
       notify-send "Waybar" "Switching to Horizontal Layout..."
       ln -sf "$CONFIG_H" "$CONFIG_SYMLINK"
@@ -57,24 +53,17 @@ case "$choice" in
       ln -sf "$CONFIG_V" "$CONFIG_SYMLINK"
       ln -sf "$TEMPLATE_V" "$TEMPLATE_SYMLINK"
     fi
-
-    # 2. Determine the current theme and regenerate style.css
     current_theme="amethyst"
     if [[ -f "$CURRENT_THEME_FILE" ]]; then
         current_theme=$(cat "$CURRENT_THEME_FILE")
     fi
     "$APPLY_THEME_SCRIPT" "$current_theme"
-
-    # 3. Ask the controller to perform a clean restart. THIS IS ITS ONLY JOB.
     "$WAYBAR_CTL_SCRIPT" restart
     ;;
   
   "  Reload Waybar")
-    # THE FIX: This script does NOT kill Waybar. It asks the controller to do it.
     "$WAYBAR_CTL_SCRIPT" restart
     ;;
-    
-  # ... (Volume and Nwg settings remain unchanged) ...
   "  Volume Settings") 
     pavucontrol &
     ;;
