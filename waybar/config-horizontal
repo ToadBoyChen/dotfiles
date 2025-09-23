@@ -208,7 +208,7 @@
         "format-disconnected": "󰖪",
         "format-icons": {"wifi": ["󰤟", "󰤢", "󰤥", "󰤨"]},
         "tooltip-format": "{ifname} ({essid})\nIP: {ipaddr}\nSignal: {signalStrength}%",
-        "on-click": "nm-connection-editor"
+        "on-click": "kitty nmtui"
     },
 
     "bluetooth": {
