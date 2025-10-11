@@ -1,15 +1,12 @@
 # ===================================================================
 # Default Behavior: IGNORE EVERYTHING
 # ===================================================================
-# This is the safest strategy for a dotfiles repository.
-# We ignore everything first, then explicitly whitelist files we want.
+
 *
 
 # ===================================================================
 # WHITELIST: Files and Directories to Keep
 # ===================================================================
-
-# -- Un-ignore specific config files --
 !hypr/
 !hypr/hyprland.conf
 !hypr/hypridle.conf
@@ -51,18 +48,15 @@
 !kitty/
 !kitty/**
 
-# Don't forget to un-ignore this .gitignore file itself!
 !.gitignore
 
+!fastfetch/
+
+!nvim/
 
 # ===================================================================
 # EXPLICIT IGNORES (Safety Net)
 # ===================================================================
-# Even though we ignore everything by default, it's good practice to
-# keep explicit ignores for common sensitive and temporary files as a
-# safety net, in case the whitelist rules are ever changed.
-
-# Sensitive files and user-specific data
 pulse/cookie
 obsidian/Cookies*
 Code/Cookies*
