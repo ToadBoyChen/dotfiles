@@ -48,6 +48,9 @@
 !kitty/
 !kitty/**
 
+!zsh/
+!zsh/**
+
 !.gitignore
 
 !fastfetch/
