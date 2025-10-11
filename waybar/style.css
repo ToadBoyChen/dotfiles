@@ -13,13 +13,13 @@
 @define-color yellow #f9e2af;
 @define-color peach #fab387;
 
-@define-color module-bg rgba(20, 80, 95, 0.6);
-@define-color module-hover rgba(148, 226, 213, 0.4);
-@define-color border-color rgba(137, 220, 235, 0.4);
-@define-color active-glow #a6e3a1;
-@define-color accent-color #a6e3a1;
+@define-color module-bg rgba(120, 50, 110, 0.65);
+@define-color module-hover rgba(245, 194, 231, 0.4);
+@define-color border-color rgba(245, 224, 220, 0.4);
+@define-color active-glow #f5c2e7;
+@define-color accent-color #f5c2e7;
 @define-color accent-color-2 #94e2d5; /* You might want to add accent2 to theme.vars */
-@define-color accent-faint-bg rgba(166, 227, 161, 0.2);
+@define-color accent-faint-bg rgba(245, 194, 231, 0.2);
 @define-color alert-faint-bg rgba(243, 139, 168, 0.5); /* This could also be a variable */
 
 @keyframes gbf {
@@ -132,7 +132,7 @@ window#waybar {
   color: @base;
   font-weight: 700;
   border-color: transparent;
-  background-image: linear-gradient(90deg, #94e2d5, #a6e3a1, #89dceb, #74c7ec),
+  background-image: linear-gradient(90deg, #f5e0dc, #f5c2e7, #cba6f7, #fab387),
                     linear-gradient(@accent-faint-bg, @accent-faint-bg);
   background-clip: border-box, padding-box;
   background-size: 400% 400%;
@@ -147,7 +147,7 @@ window#waybar {
 #custom-launcher {
   color: @base;
   border-radius: 0px 0px 8px 0px;
-  background-image: linear-gradient(90deg, #94e2d5, #a6e3a1, #89dceb, #74c7ec),
+  background-image: linear-gradient(90deg, #f5e0dc, #f5c2e7, #cba6f7, #fab387),
                     linear-gradient(@module-bg, @module-bg);
   background-clip: border-box, padding-box;
   background-size: 400% 400%;
@@ -159,7 +159,7 @@ window#waybar {
 #custom-power-menu {
   color: @base;
   border-radius: 0px 0px 0px 8px;
-  background-image: linear-gradient(90deg, #94e2d5, #a6e3a1, #89dceb, #74c7ec),
+  background-image: linear-gradient(90deg, #f5e0dc, #f5c2e7, #cba6f7, #fab387),
                     linear-gradient(@module-bg, @module-bg);
   background-clip: border-box, padding-box;
   background-size: 400% 400%;
@@ -173,7 +173,7 @@ window#waybar {
 #temperature.critical {
   border-width: 2px;
   border-color: transparent;
-  background-image: linear-gradient(90deg, #94e2d5, #f38ba8, #fab387, #74c7ec),
+  background-image: linear-gradient(90deg, #f5c2e7, #f38ba8, #eba0ac, #fab387),
                     linear-gradient(@alert-faint-bg, @alert-faint-bg);
   background-clip: border-box, padding-box;
   background-size: 400% 400%;
