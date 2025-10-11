@@ -51,8 +51,10 @@
 !.gitignore
 
 !fastfetch/
+!fastfetch/**
 
 !nvim/
+!nvim/**
 
 # ===================================================================
 # EXPLICIT IGNORES (Safety Net)
