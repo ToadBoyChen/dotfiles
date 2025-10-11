@@ -1,6 +1,6 @@
 
 
-# for i in {0..255}; do print -Pn "%K{$i}  %k%F{$i}${(l:3::0:)i}%f " ${${(M)$((i%6)):#3}:+$'\n'}; done
+for i in {0..255}; do print -Pn "%K{$i}  %k%F{$i}${(l:3::0:)i}%f " ${${(M)$((i%6)):#3}:+$'\n'}; done
 
 # Temporarily change options.
 'builtin' 'local' '-a' 'p10k_config_opts'
@@ -379,10 +379,10 @@
     fi
 
     # Styling for different parts of Git status.
-    local       meta='%7F' # white foreground
-    local      clean='%7F' # white foreground
-    local   modified='%7F' # white foreground
-    local  untracked='%7F' # white foreground
+    local       meta='%255F' # white foreground
+    local      clean='%255F' # white foreground
+    local   modified='%255F' # white foreground
+    local  untracked='%255F' # white foreground
     local conflicted='%1F' # red foreground
 
     local res
