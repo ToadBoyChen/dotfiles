@@ -52,6 +52,7 @@
 
 !fastfetch/
 !fastfetch/**
+!fastfetch/config.jsonc
 
 !nvim/
 !nvim/**
