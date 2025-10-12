@@ -3,10 +3,10 @@ return {
     config = function()
         require("lualine").setup({
             options = {
-                theme = "dracula"
+                theme = "molokai",
+                globalstatus = true,
             },
-
         })
-    end
+    end,
 }
 
