@@ -1,9 +1,3 @@
-/* --- Wofi Theme: "Aether" --- */
-/* A slick, advanced theme with frosted glass, gradients, and fluid animations. */
-
-/* -----------------------------------------------------------------------------
- *  COLOR & FONT DEFINITIONS (Your variables)
- * -------------------------------------------------------------------------- */
 @define-color base     __BASE__;
 @define-color mantle   __MANTLE__;
 @define-color crust    __CRUST__;
@@ -12,146 +6,116 @@
 @define-color surface0 __SURFACE0__;
 @define-color overlay0 __OVERLAY0__;
 @define-color accent   __ACCENT__;
-
 @define-color red       __RED__;
 @define-color yellow    __YELLOW__;
 @define-color green     __GREEN__;
 @define-color teal      __TEAL__;
 @define-color lavender  __LAVENDER__;
 
-/* -----------------------------------------------------------------------------
- *  ANIMATIONS
- * -------------------------------------------------------------------------- */
-@keyframes slide-in {
-    from {
-        opacity: 0;
-        transform: translateY(-100px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+@keyframes fade-in {
+  from { opacity: 0; transform: scale(0.95) translateY(-15px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-/* -----------------------------------------------------------------------------
- *  MAIN WINDOW
- * -------------------------------------------------------------------------- */
 window {
-    font-family: "JetBrainsMono Nerd Font", sans-serif;
-    font-size: 14px; /* Slightly larger for better readability */
-    
-    /* The Frosted Glass Effect */
-    background-color: alpha(@base, 0.85); 
-    border-radius: 16px;
-    
-    /* Soft, diffused shadow for depth */
-    box-shadow: 0 4px 20px 4px rgba(0, 0, 0, 0.4);
-
-    /* Dynamic Gradient Border */
-    border: 2px solid;
-    border-image: linear-gradient(135deg, @accent, @lavender) 1;
-
-    /* Apply the animation */
-    animation: slide-in 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  font-family: "JetBrainsMono Nerd Font", sans-serif;
+  font-size: 14px;
+  background-color: alpha(@base, 0.75);
+  backdrop-filter: blur(25px);
+  border-radius: 16px;
+  border: 1px solid alpha(@accent, 0.5);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6),
+              0 0 20px alpha(@accent, 0.25);
+  animation: fade-in 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  padding: 20px;
+  color: @text;
 }
 
-#outer-box {
-    padding: 25px; /* More generous padding */
-    color: @text;
-}
-
-/* -----------------------------------------------------------------------------
- *  INPUT BOX (The "Floating" Field)
- * -------------------------------------------------------------------------- */
 #input {
-    color: @text;
-    background-color: alpha(@surface0, 0.5); /* Layered transparency */
-    padding: 12px 15px;
-    margin-bottom: 20px;
-    
-    border: none; /* We use a bottom border instead */
-    border-radius: 10px 10px 0 0; /* Only round the top corners */
-    border-bottom: 2px solid @mantle;
-
-    /* Smooth transitions for all properties */
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background: alpha(@surface0, 0.55);
+  border: 1px solid alpha(@accent, 0.25);
+  color: @text;
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 18px;
+  transition: all 0.25s ease;
 }
 
 #input:focus {
-    outline: none;
-    background-color: alpha(@surface0, 0.7);
-    border-bottom-color: @accent;
-
-    /* A subtle "lift" effect on focus */
-    box-shadow: 0 5px 15px -5px alpha(@accent, 0.5);
-    transform: translateY(-2px);
+  border: 1px solid @accent;
+  background: alpha(@surface0, 0.7);
+  box-shadow: 0 0 18px alpha(@accent, 0.25);
+  transform: scale(1.01);
 }
 
 #input placeholder {
-    color: @subtext0;
-    opacity: 0.7;
+  color: @subtext0;
+  opacity: 0.6;
 }
 
-/* -----------------------------------------------------------------------------
- *  ENTRIES LIST
- * -------------------------------------------------------------------------- */
 #scroll {
-    margin-top: 10px;
-    background: none;
+  margin-top: 5px;
+  background: transparent;
 }
 
 #entry {
-    padding: 12px 20px;
-    border-radius: 10px;
-    transition: all 0.2s ease-out;
+  padding: 10px 14px;
+  margin-bottom: 4px;
+  border-radius: 10px;
+  background: transparent;
+  transition: all 0.2s ease-out;
+  color: @text;
 }
 
 #entry:hover {
-    background-color: alpha(@overlay0, 0.7);
+  background: alpha(@overlay0, 0.35);
+  transform: translateX(3px);
 }
 
 #entry:selected {
-    /* Rich gradient background on selection */
-    background-image: linear-gradient(to right, @accent, alpha(@lavender, 0.8));
-    color: @crust;
-
-    /* The "Glow and Grow" effect */
-    box-shadow: 0 2px 10px 1px alpha(@accent, 0.7);
-    transform: scale(1.02);
+  background-image: linear-gradient(90deg, alpha(@accent, 0.9), alpha(@lavender, 0.7));
+  color: @crust;
+  transform: scale(1.02);
+  box-shadow: 0 0 12px alpha(@accent, 0.3);
 }
 
-/* -----------------------------------------------------------------------------
- *  TEXT & ICONS
- * -------------------------------------------------------------------------- */
 #img {
-    margin-right: 12px;
+  margin-right: 10px;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+
+#entry:hover #img {
+  opacity: 1;
 }
 
 #text {
-    color: @text;
-    font-weight: 500;
+  font-weight: 500;
+  color: inherit;
 }
 
 #entry:selected #text {
-    color: @crust; /* High contrast text on selection */
-    font-weight: 700;
+  font-weight: 600;
 }
 
-/* -----------------------------------------------------------------------------
- *  CUSTOM SCROLLBAR
- * -------------------------------------------------------------------------- */
 scrollbar {
-    background-color: transparent;
-    border-radius: 10px;
+  background: transparent;
+  border-radius: 10px;
 }
 
 scrollbar slider {
-    background-color: alpha(@surface0, 0.6);
-    border-radius: 10px;
-    border: 1px solid @mantle;
-    min-width: 8px; /* Make the scrollbar a bit wider */
+  background-color: alpha(@surface0, 0.5);
+  border-radius: 10px;
+  min-width: 6px;
+  transition: background-color 0.25s ease;
 }
 
 scrollbar slider:hover {
-    background-color: alpha(@overlay0, 0.8);
+  background-color: alpha(@overlay0, 0.8);
 }
+
+#entry {
+  animation: fade-in 0.4s ease both;
+  animation-delay: calc(var(--index) * 0.02s);
+}
+

@@ -1,24 +1,24 @@
-@define-color base #1e1e2e;
-@define-color mantle #181825;
-@define-color crust #11111b;
-@define-color text #cdd6f4;
-@define-color subtext0 #a6adc8;
+@define-color base #0b0b0c;
+@define-color mantle #0e0e10;
+@define-color crust #080808;
+@define-color text #e5e5e5;
+@define-color subtext0 #b5b5b5;
 
 @define-color green #a6e3a1;
-@define-color teal #94e2d5;
-@define-color sky #89dceb;
-@define-color sapphire #74c7ec;
-@define-color red #f38ba8;
-@define-color yellow #f9e2af;
-@define-color peach #fab387;
+@define-color teal #ff4c4c;
+@define-color sky #b3001b;
+@define-color sapphire #ff8c66;
+@define-color red #a80000;
+@define-color yellow #ffcc66;
+@define-color peach #e06666;
 
-@define-color module-bg rgba(80, 9, 110, 0.65);
-@define-color module-hover rgba(180, 190, 254, 0.4);
-@define-color border-color rgba(180, 190, 254, 0.4);
-@define-color active-glow #b4befe;
-@define-color accent-color #b4befe;
-@define-color accent-color-2 #94e2d5;
-@define-color accent-faint-bg rgba(180, 190, 254, 0.2);
+@define-color module-bg rgba(10, 10, 10, 0.7);
+@define-color module-hover rgba(255, 76, 76, 0.3);
+@define-color border-color rgba(255, 76, 76, 0.4);
+@define-color active-glow #ff4c4c;
+@define-color accent-color #ff4c4c;
+@define-color accent-color-2 #ff4c4c;
+@define-color accent-faint-bg rgba(255, 76, 76, 0.25);
 @define-color alert-faint-bg rgba(243, 139, 168, 0.5);
 
 @keyframes gbf {
