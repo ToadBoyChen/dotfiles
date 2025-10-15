@@ -13,14 +13,11 @@ if [ -z "$chosen_theme" ]; then
     exit 0
 fi
 
-# 1. Apply the theme (generates files)
 "$APPLY_SCRIPT" "$chosen_theme"
 
-# 2. Reload services (delegates to controller for Waybar)
 hyprctl reload
 "$WAYBAR_CTL_SCRIPT" reload-style
 
-# Dunst restart logic...
 if systemctl --user is-active --quiet dunst.service; then
     systemctl --user restart dunst.service
 else

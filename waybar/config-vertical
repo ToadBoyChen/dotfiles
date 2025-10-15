@@ -6,7 +6,6 @@
     "margin": 0,
 
     "modules-left": [
-        "custom/launcher",
         "clock",
         "hyprland/workspaces"
     ],
@@ -15,7 +14,6 @@
     ],
     "modules-right": [
         "wlr/taskbar",
-        "group/hardware",
         "group/connections",
         "pulseaudio",
         "backlight",

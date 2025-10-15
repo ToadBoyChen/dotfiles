@@ -17,9 +17,9 @@
 @define-color border-color rgba(180, 190, 254, 0.4);
 @define-color active-glow #b4befe;
 @define-color accent-color #b4befe;
-@define-color accent-color-2 #94e2d5; /* You might want to add accent2 to theme.vars */
+@define-color accent-color-2 #94e2d5;
 @define-color accent-faint-bg rgba(180, 190, 254, 0.2);
-@define-color alert-faint-bg rgba(243, 139, 168, 0.5); /* This could also be a variable */
+@define-color alert-faint-bg rgba(243, 139, 168, 0.5);
 
 @keyframes gbf {
   0% {

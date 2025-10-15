@@ -17,9 +17,9 @@
 @define-color border-color __WAYBAR_BORDER__;
 @define-color active-glow __ACCENT__;
 @define-color accent-color __ACCENT__;
-@define-color accent-color-2 __TEAL__; /* You might want to add accent2 to theme.vars */
+@define-color accent-color-2 __TEAL__;
 @define-color accent-faint-bg __ACCENT_RGBA__;
-@define-color alert-faint-bg rgba(243, 139, 168, 0.5); /* This could also be a variable */
+@define-color alert-faint-bg rgba(243, 139, 168, 0.5);
 
 @keyframes gbf {
   0% {
