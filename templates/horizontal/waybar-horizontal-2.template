@@ -1,24 +1,24 @@
-@define-color base #1e1e2e;
-@define-color mantle #181825;
-@define-color crust #11111b;
-@define-color text #cdd6f4;
-@define-color subtext0 #a6adc8;
+@define-color base __BASE__;
+@define-color mantle __MANTLE__;
+@define-color crust __CRUST__;
+@define-color text __TEXT__;
+@define-color subtext0 __SUBTEXT0__;
 
-@define-color green #a6e3a1;
-@define-color teal #94e2d5;
-@define-color sky #89dceb;
-@define-color sapphire #74c7ec;
-@define-color red #f38ba8;
-@define-color yellow #f9e2af;
-@define-color peach #fab387;
+@define-color green __GREEN__;
+@define-color teal __TEAL__;
+@define-color sky __SKY__;
+@define-color sapphire __SAPPHIRE__;
+@define-color red __RED__;
+@define-color yellow __YELLOW__;
+@define-color peach __PEACH__;
 
-@define-color module-bg rgba(80, 9, 110, 0.65);
-@define-color module-hover rgba(180, 190, 254, 0.4);
-@define-color border-color rgba(180, 190, 254, 0.4);
-@define-color active-glow #b4befe;
-@define-color accent-color #b4befe;
-@define-color accent-color-2 #94e2d5;
-@define-color accent-faint-bg rgba(180, 190, 254, 0.2);
+@define-color module-bg __WAYBAR_BG__;
+@define-color module-hover __WAYBAR_HOVER_BG__;
+@define-color border-color __WAYBAR_BORDER__;
+@define-color active-glow __ACCENT__;
+@define-color accent-color __ACCENT__;
+@define-color accent-color-2 __TEAL__;
+@define-color accent-faint-bg __ACCENT_RGBA__;
 @define-color alert-faint-bg rgba(243, 139, 168, 0.5);
 
 @keyframes gbf {

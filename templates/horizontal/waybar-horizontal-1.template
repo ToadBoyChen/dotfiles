@@ -53,7 +53,8 @@ window#waybar {
 #custom-batteries,
 #workspaces,
 #network,
-#bluetooth {
+#bluetooth,
+#custom-notification {
   background-color: @module-bg;
   color: @text;
   padding: 4px 16px;
