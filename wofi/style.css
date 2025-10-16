@@ -12,15 +12,11 @@
 @define-color teal      #ff4c4c;
 @define-color lavender  #d9b3ff;
 
-/* ──────────────────────────────────────────────── */
-/* ✦ Entrance Animation */
 @keyframes fade-in {
   from { opacity: 0; transform: scale(0.95) translateY(-15px); }
   to   { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-/* ──────────────────────────────────────────────── */
-/* ✦ Main Window (Glassy, Floating) */
 window {
   font-family: "JetBrainsMono Nerd Font", sans-serif;
   font-size: 14px;
@@ -35,8 +31,6 @@ window {
   color: @text;
 }
 
-/* ──────────────────────────────────────────────── */
-/* ✦ Input Field (search bar) */
 #input {
   background: alpha(@surface0, 0.55);
   border: 1px solid alpha(@accent, 0.25);
@@ -59,8 +53,6 @@ window {
   opacity: 0.6;
 }
 
-/* ──────────────────────────────────────────────── */
-/* ✦ Entry List */
 #scroll {
   margin-top: 5px;
   background: transparent;
@@ -87,8 +79,6 @@ window {
   box-shadow: 0 0 12px alpha(@accent, 0.3);
 }
 
-/* ──────────────────────────────────────────────── */
-/* ✦ Text & Icons */
 #img {
   margin-right: 10px;
   opacity: 0.85;
@@ -108,8 +98,6 @@ window {
   font-weight: 600;
 }
 
-/* ──────────────────────────────────────────────── */
-/* ✦ Scrollbar (thin & subtle) */
 scrollbar {
   background: transparent;
   border-radius: 10px;
@@ -126,8 +114,6 @@ scrollbar slider:hover {
   background-color: alpha(@overlay0, 0.8);
 }
 
-/* ──────────────────────────────────────────────── */
-/* ✦ Entry Animation & Depth */
 #entry {
   animation: fade-in 0.4s ease both;
   animation-delay: calc(var(--index) * 0.02s);
