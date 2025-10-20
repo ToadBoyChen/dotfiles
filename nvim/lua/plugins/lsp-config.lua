@@ -14,6 +14,7 @@ return {
                     "pyright",
                     "clangd",
                     "ts_ls",
+                    "bashls",
                 },
             })
         end,
@@ -33,8 +34,12 @@ return {
                 },
             })
 
+            vim.lsp.config('bashls', {
+                capabilities = capabilities,
+            })
+
             vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "LSP Hover" })
-            vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to Definition" })
+            vim.keymap.set("n", "<C-.>", vim.lsp.buf.definition, { desc = "Go to Definition" })
             vim.keymap.set("n", "<C-a>", vim.lsp.buf.code_action, { desc = "Code Action" })
         end,
     },

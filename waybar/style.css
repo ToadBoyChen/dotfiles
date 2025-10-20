@@ -6,9 +6,9 @@
 
 @define-color green #a6e3a1;
 @define-color teal #ff4c4c;
-@define-color sky #b3001b;
+@define-color sky #ff4c4c;
 @define-color sapphire #ff8c66;
-@define-color red #a80000;
+@define-color red #ff4c4c;
 @define-color yellow #ffcc66;
 @define-color peach #e06666;
 
@@ -102,7 +102,7 @@ window#waybar {
 }
 
 #workspaces button.active {
-  background: linear-gradient(135deg, @accent-color 0%, @accent-color-2 100%);
+  background: linear-gradient(135deg, @yellow 0%, @accent-color 100%);
   color: @base;
   box-shadow: 0 0 6px @accent-faint-bg;
 }

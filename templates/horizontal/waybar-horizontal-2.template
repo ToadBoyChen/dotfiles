@@ -102,7 +102,7 @@ window#waybar {
 }
 
 #workspaces button.active {
-  background: linear-gradient(135deg, @accent-color 0%, @accent-color-2 100%);
+  background: linear-gradient(135deg, @yellow 0%, @accent-color 100%);
   color: @base;
   box-shadow: 0 0 6px @accent-faint-bg;
 }

@@ -6,3 +6,4 @@ return {
         vim.cmd("colorscheme cyberdream")
     end
 }
+
