@@ -1,0 +1,63 @@
+;; **
+;; ** Widgets config for EWW
+;; ** Created by : justmakeit0821
+;; **
+
+;; ** Variables ***********************************************************************
+;; Profile vars
+(defvar IMAGE "images/profile.png")
+(defvar NAME "Just Make It")
+
+;; Time vars
+(defpoll HOUR :interval "5s" `date +\"%I\"`)
+(defpoll MIN :interval "5s" `date +\"%M\"`)
+(defpoll MER :interval "5s" `date +\"%p\"`)
+(defpoll DAY :interval "5s" `date +\"%a\"`)
+
+;; Uptime vars
+(defpoll UPHOUR :interval "5s" `uptime -p | awk '{print $2 \" \" $3}' | sed 's/,//g'`)
+(defpoll UPMIN :interval "5s" `uptime -p | awk '{print $4 \" \" $5}'`)
+
+;; ** Widgets *************************************************************************
+;; profile
+(defwidget user [] 
+	(box :class "genwin" :orientation "v" :valign "center" :spacing 20 :space-evenly "false" :vexpand "false" :hexpand "false"
+		(box :style "background-image: url('${IMAGE}');" :class "face" :halign "center")
+		(label :class "fullname" :halign "center" :wrap "true" :limit-width 25 :text NAME)
+    )
+)
+
+;; clock
+(defwidget clock [] 
+	(box :class "genwin" :orientation "h" :spacing 20 :space-evenly "false" :vexpand "false" :hexpand "false" 
+		(box :orientation "h" :spacing 0
+			(label :class "time_hour" :valign "start" :wrap "true" :limit-width 25 :text HOUR)
+			(label :class "time_min" :valign "end" :wrap "true" :limit-width 25 :text MIN))
+		(box :orientation "v" :spacing 0 
+			(label :class "time_mer" :valign "end" :halign "start" :wrap "true" :limit-width 25 :text MER)
+			(label :class "time_day" :valign "end" :halign "start" :wrap "true" :limit-width 25 :text DAY))))
+
+;; uptime
+(defwidget uptime [] 
+	(box :class "genwin" 
+		(box :orientation "h" :halign "center" :spacing 20 :space-evenly "false" :vexpand "false" :hexpand "false" 
+			(label :class "icontimer" :valign "center" :text "祥")
+			(box :orientation "v" :valign "center" :spacing 0 :space-evenly "false" :vexpand "false" :hexpand "false" 
+				(label :class "uphour" :halign "end" :wrap "true" :limit-width 25 :text UPHOUR)
+				(label :class "upmin" :halign "end" :wrap "true" :limit-width 25 :text UPMIN)))))
+
+;; ** Windows *************************************************************************
+;; profile
+(defwindow profile :stacking "bg" :monitor 0 :focusable "false" :screen 1 
+	    :geometry (geometry :x 15 :y 15 :width 300 :height 315)
+					(user))
+
+;; clock
+(defwindow clock :stacking "bg" :monitor 0 :focusable "false" :screen 1 
+	    :geometry (geometry :x 330 :y 15 :width 300 :height 150)
+					(clock))
+
+;; uptime
+(defwindow uptime :stacking "bg" :monitor 0 :focusable "false" :screen 1 
+	    :geometry (geometry :x 330 :y 180 :width 300 :height 150)
+					(uptime))
