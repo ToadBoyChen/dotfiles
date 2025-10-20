@@ -23,5 +23,8 @@ do
 done
 
 clear
+
 echo "Launch Script Complete"
-echo "Goodbye $USER!"
+echo "Running Welcome Page"
+
+./welcome-page.sh

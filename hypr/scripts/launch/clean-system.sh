@@ -1,5 +1,7 @@
 #!/usr/bin/env bash 
 
+set -e
+
 echo "Run System Cleaner? (y/n)"
 read yes_no_clean
 
