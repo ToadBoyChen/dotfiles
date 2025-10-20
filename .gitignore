@@ -51,9 +51,6 @@
 !zsh/
 !zsh/**
 
-!eww/
-!eww/**
-
 !.gitignore
 
 !fastfetch/
