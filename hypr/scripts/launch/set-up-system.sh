@@ -1,61 +1,46 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-DOTFILES_DIR="$HOME/dotfiles"
 CONFIG_DIR="$HOME/.config"
 
-echo "⚙️ Setting up system..."
-
-check_dep() {
-    local dep="$1"
-    if ! command -v "$dep" &>/dev/null; then
-        echo "❌ Missing dependency: $dep"
-        return 1
-    else
-        echo "✅ $dep is installed."
-    fi
-}
-
-ensure_link() {
+validate_dotfile() {
     local source="$1"
     local target="$2"
 
+    # Symlink already correct
     if [ -L "$target" ] && [ "$(readlink "$target")" = "$source" ]; then
-        echo "✅ Link already correct: $target → $source"
+        echo "✅ Already linked: $target → $source"
         return
     fi
 
-    if [ -e "$target" ] || [ -L "$target" ]; then
-        echo "🔁 Backing up $target → $target.backup"
-        mv "$target" "$target.backup"
+    # File exists and is identical
+    if [ -e "$target" ] && cmp -s "$target" "$source"; then
+        echo "⚠️ $target matches source but isn’t a symlink."
+        read -rp "Replace with symlink? [y/N]: " ans
+        if [[ "$ans" =~ ^[Yy]$ ]]; then
+            mv "$target" "$target.backup"
+            ln -sf "$source" "$target"
+        fi
+        return
     fi
 
-    echo "🔗 Creating symlink: $target → $source"
-    ln -sf "$source" "$target"
+    # Missing or incorrect
+    echo "⚠️ $target missing or incorrect."
+    read -rp "Create symlink now? [y/N]: " ans
+    if [[ "$ans" =~ ^[Yy]$ ]]; then
+        ln -sf "$source" "$target"
+        echo "🔗 Created symlink: $target → $source"
+    fi
 }
 
-echo "🔍 Checking dependencies..."
-DEPS=(git curl wget zsh nvim fastfetch tmux)
+echo "⚙️ Validating dotfiles in ~/.config..."
 
-missing=0
-for dep in "${DEPS[@]}"; do
-    if ! check_dep "$dep"; then
-        ((missing++))
-    fi
-done
+# Zsh
+validate_dotfile "$CONFIG_DIR/zsh/.zshrc" "$HOME/.zshrc"
+validate_dotfile "$CONFIG_DIR/zsh/.p10k.zsh" "$HOME/.p10k.zsh"
 
-if ((missing > 0)); then
-    echo "⚠️ $missing dependencies missing. Consider installing them manually or adding auto-install logic."
-else
-    echo "✅ All dependencies are installed!"
-fi
+# Neovim
+validate_dotfile "$CONFIG_DIR/nvim" "$CONFIG_DIR/nvim"
 
-echo "🔗 Checking symlinks..."
-
-ensure_link "$DOTFILES_DIR/.config/zsh/.zshrc" "$HOME/.zshrc"
-ensure_link "$DOTFILES_DIR/.config/zsh/.p10k.zsh" "$HOME/.p10k.zsh"
-ensure_link "$DOTFILES_DIR/.config/nvim" "$CONFIG_DIR/nvim"
-ensure_link "$DOTFILES_DIR/.config/tmux/tmux.conf" "$HOME/.tmux.conf"
-
-echo "✅ System setup complete!"
+echo "✅ Dotfiles validation complete!"
 
