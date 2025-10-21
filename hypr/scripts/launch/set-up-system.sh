@@ -6,9 +6,6 @@ CONFIG_DIR="$HOME/.config"
 
 echo "⚙️ Setting up system..."
 
-# ────────────────────────────────
-# Function: Check if a command exists
-# ────────────────────────────────
 check_dep() {
     local dep="$1"
     if ! command -v "$dep" &>/dev/null; then
@@ -19,9 +16,6 @@ check_dep() {
     fi
 }
 
-# ────────────────────────────────
-# Function: Ensure a symlink exists
-# ────────────────────────────────
 ensure_link() {
     local source="$1"
     local target="$2"
@@ -40,11 +34,8 @@ ensure_link() {
     ln -sf "$source" "$target"
 }
 
-# ────────────────────────────────
-# Check dependencies
-# ────────────────────────────────
 echo "🔍 Checking dependencies..."
-DEPS=(git curl wget zsh neovim fastfetch tmux)
+DEPS=(git curl wget zsh nvim fastfetch tmux)
 
 missing=0
 for dep in "${DEPS[@]}"; do
@@ -59,9 +50,6 @@ else
     echo "✅ All dependencies are installed!"
 fi
 
-# ────────────────────────────────
-# Ensure symlinks
-# ────────────────────────────────
 echo "🔗 Checking symlinks..."
 
 ensure_link "$DOTFILES_DIR/.config/zsh/.zshrc" "$HOME/.zshrc"
