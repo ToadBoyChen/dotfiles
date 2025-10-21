@@ -8,13 +8,13 @@
     "modules-left": [
         "clock",
         "custom/notification",
-        "hyprland/workspaces"
-    ],
-    "modules-center": [
         "group/media"
+            ],
+    "modules-center": [
+        "hyprland/workspaces"
+
     ],
     "modules-right": [
-        "wlr/taskbar",
         "group/hardware",
         "group/connections",
         "pulseaudio",
@@ -148,7 +148,6 @@
         "exec-if": "playerctl status",
         "modules": [
             "custom/mpris-text",
-            "custom/visualizer"
         ]
     },
 
