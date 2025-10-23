@@ -1,8 +1,8 @@
 {
     "logo": {
         "type": "auto",
-        "source": "~/.config/fastfetch/ascii_arch.txt",
-	    "width": 10,
+        "source": "~/.config/fastfetch/art/art1.txt",
+	    "width": 15,
 	    "padding": {
             "top": 2,
 	        "right": 2,

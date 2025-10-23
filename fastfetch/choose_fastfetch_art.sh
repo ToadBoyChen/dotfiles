@@ -2,8 +2,10 @@
 
 # Random Art Selector for fastfetch
 
-home= 
+art=()
 
 for file in art/*; do 
-    echo "$file"
+    art+=("$file")
 done
+
+printf "%s\n" "${art[@]}"
