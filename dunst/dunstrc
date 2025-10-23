@@ -7,7 +7,7 @@
     width = 360
     shrink = yes
     origin = bottom-left
-    offset = 10, 10
+    offset = (10, 10)
     scale = 0
     
     icon_position = left
@@ -29,7 +29,6 @@
     frame_color = "#ff4c4c"
     foreground = "#ff4c4c"
     background = "#0b0b0c"
-    height = 10
     
 [urgency_low]
     background = "#0b0b0c"

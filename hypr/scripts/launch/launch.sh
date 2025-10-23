@@ -1,22 +1,23 @@
 #!/usr/bin/env bash
 
 run_launch=0
+Dir="$HOME/.config/hypr/scripts/launch"
 
 while (( run_launch > -1 ));
 do
     clear
-    ./.config/hypr/scripts/launch/title-screen.sh
+    source "$Dir/title-screen.sh"
     (( run_launch++ ))
 
     case "$run_launch" in
         1)
-            ./.config/hypr/scripts/launch/set-up-system.sh 
+            source "$Dir/set-up-system.sh "
             ;;
         2)
-            ./.config/hypr/scripts/launch/update-system.sh
+            source "$Dir/update-system.sh"
             ;;
         3)
-            ./.config/hypr/scripts/launch/clean-system.sh 
+            source "$Dir/clean-system.sh "
             ;;
     esac
 
@@ -25,4 +26,4 @@ do
     fi
 done
 
-./.config/hypr/scripts/launch/welcome-page.sh
+source "$Dir/welcome-page.sh"

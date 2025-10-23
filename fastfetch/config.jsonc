@@ -1,11 +1,12 @@
 {
-    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
     "logo": {
-	"source": "~/.config/fastfetch/5c80f20a72f5d9028c17eccf.png",
-	"width": 25,
-	"padding": {
-            "top": 1,
-	    "right": 1
+        "type": "auto",
+        "source": "~/.config/fastfetch/ascii_arch.txt",
+	    "width": 10,
+	    "padding": {
+            "top": 2,
+	        "right": 2,
+            "left": 2
         }
     },
     "display": {
