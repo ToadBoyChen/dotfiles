@@ -1,12 +1,14 @@
 #!/bin/bash
 
+set -x
+
 WALLPAPER_DIR="$HOME/.config/wallpapers/"
 SCRIPTS_DIR="$HOME/.config/hypr/scripts"
 THEME_SWITCHER="$SCRIPTS_DIR/theme-switcher.sh"
 WAYBAR_CTL_SCRIPT="$SCRIPTS_DIR/waybar-ctl.sh"
 
 # --- Main Menu ---
-choice=$(printf "  Random Wallpaper\n󰸉  Select Wallpaper\n🎨  Change Theme\n🧱  Choose Waybar Type\n  Reload Waybar\n  Volume Settings\n  Nwg Settings" | \
+choice=$(printf "  Random Wallpaper\n󰸉  Select Wallpaper\n🎨 Change Theme\n Choose Waybar Type\n  Reload Waybar\n  Volume Settings\n  Nwg Settings" | \
   wofi --dmenu --prompt "Settings")
 
 case "$choice" in
@@ -22,7 +24,7 @@ case "$choice" in
   "󰸉  Select Wallpaper")
     SELECTED_WALLPAPER=$(find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) \
       | sort \
-      | wofi --dmenu --prompt "🖼️ Select Wallpaper")
+      | wofi --dmenu --prompt "Select Wallpaper")
 
     if [[ -n "$SELECTED_WALLPAPER" ]]; then
       swww img "$SELECTED_WALLPAPER" --transition-type any --transition-fps 60
@@ -34,7 +36,7 @@ case "$choice" in
   "🎨  Change Theme")
     "$THEME_SWITCHER"
     ;;
-  "🧱  Choose Waybar Type")
+  " Choose Waybar Type")
     "$WAYBAR_CTL_SCRIPT" choose
     ;;
   "  Reload Waybar")

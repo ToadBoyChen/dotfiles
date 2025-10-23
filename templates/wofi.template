@@ -20,7 +20,6 @@ window {
   border-radius: 8px;
   border: 2px solid alpha(@accent, 1);
   color: @text;
-  decoration: none; 
 }
 
 #input {
