@@ -3,8 +3,7 @@
 # =======================================================================
 background {
     monitor =
-    path = ~/.config/wallpapers/earth.jpeg
-    vibrancy = 0.17
+    path = ~/.config/wallpapers/PFG.jpeg
 }
 
 # =======================================================================
