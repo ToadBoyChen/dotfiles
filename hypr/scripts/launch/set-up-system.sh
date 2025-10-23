@@ -32,8 +32,8 @@ validate_dotfile() {
 
 echo "Validating dotfiles in ~/.config..."
 
-# Zsh
 validate_dotfile "$CONFIG_DIR/zsh/.zshrc" "$HOME/.zshrc"
+validate_dotfile "$CONFIG_DIR/.tmux.conf" "$HOME/.tmux.conf"
 validate_dotfile "$CONFIG_DIR/zsh/.p10k.zsh" "$HOME/.p10k.zsh"
 
 echo "Dotfiles validation complete!"
