@@ -11,13 +11,13 @@ do
 
     case "$run_launch" in
         1)
-            source "$Dir/set-up-system.sh "
+            source "$Dir/set-up-system.sh"
             ;;
         2)
             source "$Dir/update-system.sh"
             ;;
         3)
-            source "$Dir/clean-system.sh "
+            source "$Dir/clean-system.sh"
             ;;
     esac
 
