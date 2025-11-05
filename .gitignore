@@ -19,6 +19,9 @@
 !dunst/
 !dunst/**
 
+!latex/ 
+!latex/**
+
 !fastfetch/
 !fastfetch/**
 

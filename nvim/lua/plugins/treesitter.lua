@@ -12,12 +12,10 @@ return {
         "cpp", 
         "html", 
         "css",
-        "markdown",          -- 🟢 REQUIRED for render-markdown
-        "markdown_inline",   -- 🟢 REQUIRED for inline elements ($math$, links, etc.)
-      },
+        "markdown",
+        },
       highlight = { enable = true },
       indent = { enable = true },
-      -- Optional: Treesitter-based folding (nice for long notes)
       fold = { enable = true },
     })
   end,

@@ -1,0 +1,16 @@
+\usepackage{xparse}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\set}[1]{\left \{#1 \right \}}
+\newcommand{\cbrack}[1]{\left( #1 \right)}
+\newcommand{\sbrack}[1]{\left[ #1 \right]}
+
+\NewDocumentCommand{\diff}{O{} m m}{%
+  \frac{d^{#1} #2}{d #3^{#1}}%
+}
+
+\NewDocumentCommand{\pdiff}{O{} m m}{%
+  \frac{\partial^{#1} #2}{\partial #3^{#1}}%
+}
