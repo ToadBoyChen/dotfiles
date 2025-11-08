@@ -1,53 +1,53 @@
 * {
     background-image: none;
-    font-family: "JetBrainsMono Nerd Font";
-    font-size: 18px;
-    text-shadow: none;
+    box-shadow: none;
+    font-family: "JetBrainsMono Nerd Font", sans-serif;
 }
 
 window {
-    background-color: rgba(18, 18, 26, 0.4);
+    background-color: rgba(17, 17, 27, 0.95);
 }
 
 button {
-    color: #cad3f5;
-    background-color: rgba(18, 18, 26, 1);
-    border-style: none;
-    border-width: 0px;
+    color: #FFA066;
+    background-color: #1e1e2e;
+    border-radius: 24px;
+    border: 3px solid #313244;
+    margin: 10px;
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 10%;
-    box-shadow: none;
-    outline: none;
-    margin: 40px;
+    background-size: 25%;
     transition: all 0.2s ease-in-out;
 }
 
-button:focus, button:active, button:hover {
-    background-color: rgba(136, 136, 255, 0.9);
-    color: #24273a;
+button:hover {
+    background-color: #2a2a3c;
+    border-color: #FFA066;
+    box-shadow: 0 0 15px 3px rgba(255, 160, 102, 0.2);
+    outline-style: none;
+    background-size: 30%;
 }
 
 #lock {
-    background-image: image(url("./icons/lock.png"), url("/usr/share/wlogout/icons/lock.png"));
+    background-image: image(url("icons/lock.svg"));
 }
 
 #logout {
-    background-image: image(url("./icons/logout.png"), url("/usr/share/wlogout/icons/logout.png"));
+    background-image: image(url("icons/logout.svg"));
 }
 
 #suspend {
-    background-image: image(url("./icons/suspend.png"), url("/usr/share/wlogout/icons/suspend.png"));
+    background-image: image(url("icons/suspend.svg"));
 }
 
 #hibernate {
-    background-image: image(url("./icons/hibernate.png"), url("/usr/share/wlogout/icons/hibernate.png"));
+    background-image: image(url("icons/hibernate.svg"));
 }
 
 #shutdown {
-    background-image: image(url("./icons/shutdown.png"), url("/usr/share/wlogout/icons/shutdown.png"));
+    background-image: image(url("icons/shutdown.svg"));
 }
 
 #reboot {
-    background-image: image(url("./icons/reboot.png"), url("/usr/share/wlogout/icons/reboot.png"));
+    background-image: image(url("icons/reboot.svg"));
 }
