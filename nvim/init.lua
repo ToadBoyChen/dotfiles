@@ -19,4 +19,5 @@ vim.g.maplocalleader = "\\"
 
 require("vim-config")
 require("lazy").setup("plugins")
-
+vim.opt.spell = true
+vim.opt.spelllang = { "en_gb" }

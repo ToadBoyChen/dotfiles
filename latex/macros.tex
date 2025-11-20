@@ -9,6 +9,42 @@
 \newcommand{\abrack}[1]{\left\langle #1 \right\rangle}
 \newcommand{\card}[1]{\left| #1 \right|}
 
+\NewDocumentCommand{\pmatrx}{ o m }{%
+  \IfNoValueTF{#1}{%
+    \begin{pmatrix}#2\end{pmatrix}%
+  }{%
+    \left( \begin{array}{#1} #2 \end{array} \right)%
+  }%
+}
+
+\NewDocumentCommand{\vmatrx}{ o m }{%
+  \IfNoValueTF{#1}{%
+    \begin{vmatrix}#2\end{vmatrix}%
+  }{%
+    \left| \begin{array}{#1} #2 \end{array} \right|%
+  }%
+}
+
+\NewDocumentCommand{\matrx}{ o m }{%
+  \IfNoValueTF{#1}{%
+    \begin{matrix}#2\end{matrix}%
+  }{%
+    \left \begin{array}{#1} #2 \end{array} \right%
+  }%
+}
+
+\NewDocumentCommand{\bmatrx}{ o m }{%
+  \IfNoValueTF{#1}{%
+    \begin{bmatrix}#2\end{bmatrix}%
+  }{%
+    \left[ \begin{array}{#1} #2 \end{array} \right]%
+  }%
+}
+
+\NewDocumentCommand{\arr}{ O{c} m }{%
+  \begin{array}{#1}#2\end{array}%
+}
+
 \NewDocumentCommand{\diff}{O{} m m}{%
   \frac{d^{#1} #2}{d #3^{#1}}%
 }
